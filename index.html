@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <title>Document</title>
+</head>
+<body class="w-full h-screen flex justify-content items-center bg-[#18171F]">
+    <div class="h-[632px] w-[540px] mx-auto">
+
+        <div class="w-full h-[80px] bg-[#24232C] flex flex-row justify-between items-center p-7">
+            <span class="text-white text-2xl font-bold">PTx1f5DaFX</span>
+            <img src="./public/images/icon-copy.svg" class=""/>
+        </div>
+
+        <div class="w-full h-[528px] mt-[24px] bg-[#24232C] flex flex-col space-y-[30px] justify-center items-center p-7">
+
+            <!-- Character Length -->
+
+            <div class="flex flex-col justify-center items-center w-full pb-3">
+                <div class="w-full flex flex-row justify-between items-center">
+                    <label for="length" class="font-bold text-[#E6E5EA] text-[18px]">Character Length</label>
+                    <span id='length_text' class="text-[#A4FFAF] text-[32px] font-bold">10</span>
+                </div>
+                <input type="range" id="length" name="length" min="0" max="20" class="custom-slider w-full mt-4">
+            </div>
+
+            <!-- Include input -->
+
+            <div class="strength_option h-[152px] w-full flex flex-col space-y-3">
+                <span class="flex flex-row items-center">
+                    <input type="checkbox" id="uppercase" name="uppercase" class="h-[20px] w-[20px]">
+                    <label for="uppercase" class="text-white text-[18px] font-bold mx-2">Include Uppercase Letters</label>
+                </span>
+                <span class="flex flex-row items-center">
+                    <input type="checkbox" id="lowercase" name="lowercase" class="h-[20px] w-[20px]">
+                    <label for="lowercase" class="text-white text-[18px] font-bold mx-2">Include Lowercase Letters</label>
+                </span>
+                <span class="flex flex-row  items-center">
+                    <input type="checkbox" id="numbers" name="numbers" class="h-[20px] w-[20px]">
+                    <label for="numbers" class="text-white text-[18px] font-bold mx-2">Include Numbers</label>
+                </span>
+                <span class="flex flex-row  items-center">
+                    <input type="checkbox" id="symbols" name="symbols" class="h-[20px] w-[20px]">
+                    <label for="symbols" class="text-white text-[18px] font-bold mx-2">Include Symbols</label>
+                </span>
+            </div>
+
+            <!-- Strength difficulty -->
+            <div class="w-full h-[72px] bg-[#18171F] flex flex-row justify-between items-center p-8">
+                <span class="text-[#817D92] text-[18px] font-semibold">STRENGTH</span>
+                <!-- Jauge WEAK to STRONG -->
+                <div class="flex flex-row justify-between items-center">
+                    <span class="text-[#E6E5EA] text-[24px] font-semibold mr-2">TOO WEAK !</span>
+                    <div id='strength_icon' class="grid grid-cols-4 gap-x-2">
+                        <div id="strengthIcon"></div>
+                        <div id="strengthIcon"></div>
+                        <div id="strengthIcon"></div>
+                        <div id="strengthIcon"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bouton generate -->
+            <button class="w-full h-[65px] bg-[#A4FFAF] flex flex-row justify-center items-center">
+                <span class="font-medium">GENERATE</span>
+                <img src="./public/images/icon-arrow-right.svg" class="mx-4"/>
+            </button>
+        </div>
+    </div>
+    <script src='script.js'></script>
+</body>
+</html>

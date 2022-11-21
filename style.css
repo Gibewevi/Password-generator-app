@@ -1,0 +1,28 @@
+input[type=range].custom-slider 
+{   
+    -webkit-appearance: none;
+    background-color: #A4FFAF;
+    height: 8PX;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    background: white;
+  }
+
+  input[type="checkbox"]:checked {
+    accent-color: #A4FFAF;
+}
+
+#strengthIcon
+{
+  width: 10px;
+  height: 25px;
+  background-color: #24232C;
+  border-style: solid;
+  border-color: white;
+  border-width: 0.12em;
+}
