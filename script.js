@@ -14,13 +14,11 @@ let inputOption = document.querySelectorAll('input[type="checkbox"]');
 let length_text = document.getElementById('length_text');
 // strength icon
 let strengthIcons = document.querySelectorAll('#strengthIcon');
-// number input checked
-let inputOptionCheck = 0;
 // color strength
 let colorStrength = ['#F64A4A','#FB7C58','#F8CD65', '#A4FFAF'];
 // number input checked
 let count = 0;
-// length
+// length array
 let lengthDifficulty = 
 [
     [uppercase = {bol:false, average:0, caracter:"abcdefghijklmnopqrstuvwxyz"}],
@@ -40,54 +38,41 @@ btnGenerate.addEventListener('click',function()
     PassWord(length_text.innerText,count);
 })
 
-// update input checked number
-    inputOption[0].addEventListener('change', (event) => 
+
+for(i=0;i<inputOption.length;i++)
+{
+    // Update input check
+    inputOption[i].addEventListener('change', (event) => 
     {
+        
         if(event.currentTarget.checked)
-            {inputOptionCheck++;lengthDifficulty[0][0].bol=true;count++;labelStrength.innerText = labelArray[count]}
+             {
+
+                // input boleen true/false
+                lengthDifficulty[event.currentTarget.id][0].bol=true;
+                // Number input checked
+                count++;
+                labelStrength.innerText = labelArray[count];
+            }
         else
-            {inputOptionCheck--;lengthDifficulty[0][0].bol=false;count--;labelStrength.innerText = labelArray[count]}
+             {lengthDifficulty[event.currentTarget.id][0].bol=false;count--;labelStrength.innerText = labelArray[count]}
         strengthIconUpdate();
     })
+}
 
-    inputOption[1].addEventListener('change', (event) => 
-    {
-        if(event.currentTarget.checked)
-            {inputOptionCheck++;lengthDifficulty[1][0].bol=true;count++;labelStrength.innerText = labelArray[count]}
-        else
-            {inputOptionCheck--;lengthDifficulty[1][0].bol=false;count--;labelStrength.innerText = labelArray[count]}
-        strengthIconUpdate();
-    })
-
-    inputOption[2].addEventListener('change', (event) => 
-    {
-        if(event.currentTarget.checked)
-            {inputOptionCheck++;lengthDifficulty[2][0].bol=true;count++;labelStrength.innerText = labelArray[count]}
-        else
-            {inputOptionCheck--;lengthDifficulty[2][0].bol=false;count--;labelStrength.innerText = labelArray[count]}
-        strengthIconUpdate();
-    })
-
-    inputOption[3].addEventListener('change', (event) => 
-    {
-        if(event.currentTarget.checked)
-            {inputOptionCheck++;lengthDifficulty[3][0].bol=true;count++;labelStrength.innerText = labelArray[count]}
-        else
-            {inputOptionCheck--;lengthDifficulty[3][0].bol=false;count--;labelStrength.innerText = labelArray[count]}
-        strengthIconUpdate();
-    })
-
-
+// Update strength icon 
 const strengthIconUpdate = () => 
 {
     for(i=0;i<inputOption.length;i++)
     {
-        if(i<inputOptionCheck)
+        if(i<count)
         {
-            strengthIcons[i].style.setProperty('background-color',colorStrength[inputOptionCheck-1]);
-            strengthIcons[i].style.setProperty('border-color',colorStrength[inputOptionCheck-1]);
+            // CSS update strength grid
+            strengthIcons[i].style.setProperty('background-color',colorStrength[count-1]);
+            strengthIcons[i].style.setProperty('border-color',colorStrength[count-1]);
         } else 
         {
+             // CSS update strength grid
             strengthIcons[i].style.setProperty('background-color','#18171F');
             strengthIcons[i].style.setProperty('border-color','white');
         }
@@ -104,9 +89,9 @@ const PassWord = (int_length,int_count) =>
         let rest = (int_length-(average*count));
         return [average, count, rest];
     }
+
     // count => (upper/lower/number/symbol)
     let count = Average()[1];
-    console.log('count'+count)
     // average per category 
     let average = Average()[0];
     // rest of average
@@ -117,31 +102,27 @@ const PassWord = (int_length,int_count) =>
     let password = '';
 
     // average distribution
-    for(i=0;i<lengthDifficulty.length;i++)
-    {
-        if(lengthDifficulty[i][0].bol)
+    lengthDifficulty.forEach(element => {
+        if(element[0].bol)
         {
             for(j=0;j<average;j++)
             {
                 // distribute caracter per category
-                let caracter = lengthDifficulty[i][0].caracter.charAt(Math.floor(Math.random()*lengthDifficulty[i][0].caracter.length))
+                let caracter =  element[0].caracter.charAt(Math.floor(Math.random()* element[0].caracter.length))
                 password += caracter
             }
         }
-    }
-    for(i=0;i<count;i++)
-    {
-        if(lengthDifficulty[i][0])
+    });
+
+    lengthDifficulty.forEach(element => {
+        if(element[0].bol && rest>0)
         {
-            if(rest>0)
-            {
-                // distribute rest 
-                let caracter = lengthDifficulty[i][0].caracter.charAt(Math.floor(Math.random()*lengthDifficulty[i][0].caracter.length))
-                password += caracter
-                rest--;
-            }
-        } 
-    }
+            // distribute rest 
+            let caracter = element[0].caracter.charAt(Math.floor(Math.random()*element[0].caracter.length))
+            password += caracter
+            rest--;
+        }
+    });
 
 password = password.split('').sort(function(){return 0.5-Math.random();}).join('');
 passwordID.innerText = password;
