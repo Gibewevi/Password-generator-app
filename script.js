@@ -1,8 +1,15 @@
+//button GENERATE ->
+let btnGenerate = document.getElementById('btn');
+// Password 
+let passwordID = document.getElementById('password');
+// Array strength label
+let labelArray= ['TOO WEAK !', 'TOO WEAK !', 'WEAK','MEDIUM','STRONG'];
+// Label html label
+let labelStrength = document.getElementById('strength_label');
 // numbers character
 let charactereLength = document.getElementById('length');
 // checkbox
 let inputOption = document.querySelectorAll('input[type="checkbox"]');
-console.log(inputOption)
 // length text 
 let length_text = document.getElementById('length_text');
 // strength icon
@@ -11,50 +18,62 @@ let strengthIcons = document.querySelectorAll('#strengthIcon');
 let inputOptionCheck = 0;
 // color strength
 let colorStrength = ['#F64A4A','#FB7C58','#F8CD65', '#A4FFAF'];
+// number input checked
+let count = 0;
 // length
-let lengthDifficulty = [{uppercase:false},{lowercase:false},{number:false},{symbol:false}];
+let lengthDifficulty = 
+[
+    [uppercase = {bol:false, average:0, caracter:"abcdefghijklmnopqrstuvwxyz"}],
+    [lowercase = {bol:false, average:0, caracter:"ABCDEFGHIJKLMNOPQRSTUVWXYZ"}],
+    [number = {bol:false, average:0, caracter: '0123456789'}],
+    [symbol = {bol:false, average:0, caracter: '!@#$%^&*()_+~`|}{[]\:;?><,./-='}]
+]
 // update character length
 charactereLength.onchange = function() 
 {
     length_text.innerText = charactereLength.value;
 }
 
-// update input checked number
-console.log(inputOption.length)
+// generate new password
+btnGenerate.addEventListener('click',function()
+{
+    PassWord(length_text.innerText,count);
+})
 
+// update input checked number
     inputOption[0].addEventListener('change', (event) => 
     {
         if(event.currentTarget.checked)
-            {inputOptionCheck++;lengthDifficulty[0]=true;}
+            {inputOptionCheck++;lengthDifficulty[0][0].bol=true;count++;labelStrength.innerText = labelArray[count]}
         else
-            {inputOptionCheck--;lengthDifficulty[0]=false;}
+            {inputOptionCheck--;lengthDifficulty[0][0].bol=false;count--;labelStrength.innerText = labelArray[count]}
         strengthIconUpdate();
     })
 
     inputOption[1].addEventListener('change', (event) => 
     {
         if(event.currentTarget.checked)
-            {inputOptionCheck++;lengthDifficulty[1]=true;}
+            {inputOptionCheck++;lengthDifficulty[1][0].bol=true;count++;labelStrength.innerText = labelArray[count]}
         else
-            {inputOptionCheck--;lengthDifficulty[1]=false;}
+            {inputOptionCheck--;lengthDifficulty[1][0].bol=false;count--;labelStrength.innerText = labelArray[count]}
         strengthIconUpdate();
     })
 
     inputOption[2].addEventListener('change', (event) => 
     {
         if(event.currentTarget.checked)
-            {inputOptionCheck++;lengthDifficulty[2]=true;}
+            {inputOptionCheck++;lengthDifficulty[2][0].bol=true;count++;labelStrength.innerText = labelArray[count]}
         else
-            {inputOptionCheck--;lengthDifficulty[2]=false;}
+            {inputOptionCheck--;lengthDifficulty[2][0].bol=false;count--;labelStrength.innerText = labelArray[count]}
         strengthIconUpdate();
     })
 
     inputOption[3].addEventListener('change', (event) => 
     {
         if(event.currentTarget.checked)
-            {inputOptionCheck++;lengthDifficulty[3]=true;}
+            {inputOptionCheck++;lengthDifficulty[3][0].bol=true;count++;labelStrength.innerText = labelArray[count]}
         else
-            {inputOptionCheck--;lengthDifficulty[3]=false;}
+            {inputOptionCheck--;lengthDifficulty[3][0].bol=false;count--;labelStrength.innerText = labelArray[count]}
         strengthIconUpdate();
     })
 
@@ -75,25 +94,56 @@ const strengthIconUpdate = () =>
     }
 }
 
-const passWord = (int_length, bol_uppercase, bol_lowercase, bol_number, bol_symbol) =>
+const PassWord = (int_length,int_count) =>
 {   
-    // length caracters
+    // average function
+    const Average = () => 
+    {
+        let count = int_count;
+        let average = Math.floor(int_length/count);
+        let rest = (int_length-(average*count));
+        return [average, count, rest];
+    }
+    // count => (upper/lower/number/symbol)
+    let count = Average()[1];
+    console.log('count'+count)
+    // average per category 
+    let average = Average()[0];
+    // rest of average
+    let rest = Average()[2];
+    // password length
     let length = int_length;
-    // bol strength
-    let uppercase = bol_uppercase;
-    let lowercase = bol_lowercase;
-    let number = bol_number;
-    let symbol = bol_symbol;
+    // password
+    let password = '';
 
-    const string = "abcdefghijklmnopqrstuvwxyz"; //to upper 
-    const numeric = '0123456789';
-    const punctuation = '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
-    console.log(string.charAt());
+    // average distribution
+    for(i=0;i<lengthDifficulty.length;i++)
+    {
+        if(lengthDifficulty[i][0].bol)
+        {
+            for(j=0;j<average;j++)
+            {
+                // distribute caracter per category
+                let caracter = lengthDifficulty[i][0].caracter.charAt(Math.floor(Math.random()*lengthDifficulty[i][0].caracter.length))
+                password += caracter
+            }
+        }
+    }
+    for(i=0;i<count;i++)
+    {
+        if(lengthDifficulty[i][0])
+        {
+            if(rest>0)
+            {
+                // distribute rest 
+                let caracter = lengthDifficulty[i][0].caracter.charAt(Math.floor(Math.random()*lengthDifficulty[i][0].caracter.length))
+                password += caracter
+                rest--;
+            }
+        } 
+    }
 
-    // boucle => longueur de la chaine minimum 
-        // Générer un tableau avec les bol (upper,lower,numeric,symbol)
-    // Parcourir le tableau avec un random et selectionner un element
-        // Recreer une chaine et supprimer l'element du tableau jusqu'au dernier
+password = password.split('').sort(function(){return 0.5-Math.random();}).join('');
+passwordID.innerText = password;
+return password;
 }
-
-passWord(0,false,false,false,false);

@@ -13,7 +13,7 @@
     <div class="h-[632px] w-[540px] mx-auto">
         <h1 class="text-center text-xl mb-4 font-black text-gray-400">Password Generator</h1>
         <div class="w-full h-[80px] bg-[#24232C] flex flex-row justify-between items-center p-7">
-            <span class="text-white text-2xl font-bold">PTx1f5DaFX</span>
+            <span id='password' class="text-white text-2xl font-bold">P4$5W0rD!</span>
             <img src="./public/images/icon-copy.svg" class=""/>
         </div>
 
@@ -55,7 +55,7 @@
                 <span class="text-[#817D92] text-[18px] font-semibold">STRENGTH</span>
                 <!-- Jauge WEAK to STRONG -->
                 <div class="flex flex-row justify-between items-center">
-                    <span class="text-[#E6E5EA] text-[24px] font-semibold mr-2">TOO WEAK !</span>
+                    <span id='strength_label' class="text-[#E6E5EA] text-[24px] font-semibold mr-2">TOO WEAK !</span>
                     <div id='strength_icon' class="grid grid-cols-4 gap-x-2">
                         <div id="strengthIcon"></div>
                         <div id="strengthIcon"></div>
@@ -66,7 +66,7 @@
             </div>
 
             <!-- Bouton generate -->
-            <button class="w-full h-[65px] bg-[#A4FFAF] flex flex-row justify-center items-center">
+            <button id='btn' class="w-full h-[65px] bg-[#A4FFAF] flex flex-row justify-center items-center">
                 <span class="font-medium">GENERATE</span>
                 <img src="./public/images/icon-arrow-right.svg" class="mx-4"/>
             </button>
