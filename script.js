@@ -26,6 +26,15 @@ let lengthDifficulty =
     [number = {bol:false, average:0, caracter: '0123456789'}],
     [symbol = {bol:false, average:0, caracter: '!@#$%^&*()_+~`|}{[]\:;?><,./-='}]
 ]
+// clipboard icon
+let clipboard = document.getElementById('clipboard');
+// clipboard function
+clipboard.addEventListener('click', function()
+{
+    navigator.clipboard.writeText(passwordID.innerText);
+    alert('Password copied !');
+})
+
 // update character length
 charactereLength.onchange = function() 
 {

@@ -37,6 +37,39 @@ input[type="checkbox"]:hover
   cursor: grab;
 }
 
+svg
+{
+  fill: #24232C;
+  margin-left: 4px;
+}
+
+#clipboard
+{
+  fill: #A4FFAF;
+}
+#clipboard:hover
+{
+  fill: white;
+}
+#btn:hover 
+{
+  background-color: #24232C;
+  border-width: 0.20em;
+  border-style: solid;
+  border-color: #A4FFAF;
+}
+
+#btn:hover svg
+{
+  fill: #A4FFAF;
+
+}
+
+#btn:hover span
+{
+color: #A4FFAF
+}
+
 #strengthIcon
 {
   width: 10px;
