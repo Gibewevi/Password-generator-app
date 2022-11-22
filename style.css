@@ -12,6 +12,16 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 50%;
     background: white;
   }
+input[type="range"]::-webkit-slider-thumb:hover {
+    -webkit-appearance: none;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    border-color: #A4FFAF;
+    border-width: 0.1em;
+    border-style: solid;
+    background: black;
+  }
 
   input[type="checkbox"]:checked {
     accent-color: #A4FFAF;
