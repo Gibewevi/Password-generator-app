@@ -35,11 +35,12 @@ clipboard.addEventListener('click', function()
     alert('Password copied !');
 })
 
-// update character length
-charactereLength.onchange = function() 
-{
-    length_text.innerText = charactereLength.value;
-}
+document.getElementById("length").oninput = function() {
+    var value = (this.value-this.min)/(this.max-this.min)*100
+    this.style.background = 'linear-gradient(to right, #A4FFAF 0%, #A4FFAF ' + value + '%, #fff ' + value + '%, white 100%)'
+    document.getElementById('length_text').innerHTML = this.value;
+};
+
 
 // generate new password
 btnGenerate.addEventListener('click',function()

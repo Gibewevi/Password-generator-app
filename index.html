@@ -26,7 +26,7 @@
                     <label for="length" class="text-[16px] sm:text-[18px] font-bold text-[#E6E5EA]">Character Length</label>
                     <span id='length_text' class="text-[24px] sm:text-[32px]  text-[#A4FFAF] text-[32px] font-bold">10</span>
                 </div>
-                <input type="range" id="length" name="length" min="0" max="20" class="custom-slider w-full mt-4">
+                <input type="range" oninput="changeValueInputRange(this.value)" id="length" name="length" min="0" max="20" class="custom-slider w-full mt-4">
             </div>
 
             <!-- Include input -->
