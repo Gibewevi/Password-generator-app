@@ -1,24 +1,16 @@
-//button GENERATE ->
+
 let btnGenerate = document.getElementById('btn');
-// Password 
 let passwordID = document.getElementById('password');
-// Array strength label
 let labelArray= ['TOO WEAK !', 'TOO WEAK !', 'WEAK','MEDIUM','STRONG'];
-// Label html label
 let labelStrength = document.getElementById('strength_label');
-// numbers character
 let charactereLength = document.getElementById('length');
 // checkbox
 let inputOption = document.querySelectorAll('input[type="checkbox"]');
-// length text 
 let length_text = document.getElementById('length_text');
-// strength icon
 let strengthIcons = document.querySelectorAll('#strengthIcon');
-// color strength
 let colorStrength = ['#F64A4A','#FB7C58','#F8CD65', '#A4FFAF'];
-// number input checked
-let count = 0;
-// length array
+let numberInputChecked = 0;
+
 let lengthDifficulty = 
 [
     [uppercase = {bol:false, average:0, caracter:"abcdefghijklmnopqrstuvwxyz"}],
@@ -26,60 +18,54 @@ let lengthDifficulty =
     [number = {bol:false, average:0, caracter: '0123456789'}],
     [symbol = {bol:false, average:0, caracter: '!@#$%^&*()_+~`|}{[]\:;?><,./-='}]
 ]
-// clipboard icon
-let clipboard = document.getElementById('clipboard');
-// clipboard function
-clipboard.addEventListener('click', function()
+
+let clipboardIcon = document.getElementById('clipboardIcon');
+clipboardIcon.addEventListener('click', function()
 {
-    navigator.clipboard.writeText(passwordID.innerText);
+    navigator.clipboardIcon.writeText(passwordID.innerText);
     alert('Password copied !');
 })
 
 document.getElementById("length").oninput = function() {
-    var value = (this.value-this.min)/(this.max-this.min)*100
+    let value = (this.value-this.min)/(this.max-this.min)*100
     this.style.background = 'linear-gradient(to right, #A4FFAF 0%, #A4FFAF ' + value + '%, #fff ' + value + '%, white 100%)'
     document.getElementById('length_text').innerHTML = this.value;
 };
 
-
 // generate new password
 btnGenerate.addEventListener('click',function()
 {
-    PassWord(length_text.innerText,count);
+    PassWord(length_text.innerText,numberInputChecked);
 })
-
 
 for(i=0;i<inputOption.length;i++)
 {
     // Update input check
-    inputOption[i].addEventListener('change', (event) => 
+    inputOption[0].addEventListener('change', (event) => 
     {
-        
         if(event.currentTarget.checked)
              {
-
                 // input boleen true/false
                 lengthDifficulty[event.currentTarget.id][0].bol=true;
                 // Number input checked
-                count++;
-                labelStrength.innerText = labelArray[count];
+                numberInputChecked++;
+                labelStrength.innerText = labelArray[numberInputChecked];
             }
         else
-             {lengthDifficulty[event.currentTarget.id][0].bol=false;count--;labelStrength.innerText = labelArray[count]}
+             {lengthDifficulty[event.currentTarget.id][0].bol=false;numberInputChecked--;labelStrength.innerText = labelArray[numberInputChecked]}
         strengthIconUpdate();
     })
 }
 
-// Update strength icon 
 const strengthIconUpdate = () => 
 {
     for(i=0;i<inputOption.length;i++)
     {
-        if(i<count)
+        if(i<numberInputChecked)
         {
             // CSS update strength grid
-            strengthIcons[i].style.setProperty('background-color',colorStrength[count-1]);
-            strengthIcons[i].style.setProperty('border-color',colorStrength[count-1]);
+            strengthIcons[i].style.setProperty('background-color',colorStrength[numberInputChecked-1]);
+            strengthIcons[i].style.setProperty('border-color',colorStrength[numberInputChecked-1]);
         } else 
         {
              // CSS update strength grid
@@ -89,26 +75,20 @@ const strengthIconUpdate = () =>
     }
 }
 
-const PassWord = (int_length,int_count) =>
+const PassWord = (int_length,int_numberInputChecked) =>
 {   
-    // average function
     const Average = () => 
     {
-        let count = int_count;
-        let average = Math.floor(int_length/count);
-        let rest = (int_length-(average*count));
-        return [average, count, rest];
+        let numberInputChecked = int_numberInputChecked;
+        let average = Math.floor(int_length/numberInputChecked);
+        let rest = (int_length-(average*numberInputChecked));
+        return [average, numberInputChecked, rest];
     }
 
-    // count => (upper/lower/number/symbol)
-    let count = Average()[1];
-    // average per category 
+    let numberInputChecked = Average()[1];
     let average = Average()[0];
-    // rest of average
     let rest = Average()[2];
-    // password length
     let length = int_length;
-    // password
     let password = '';
 
     // average distribution
